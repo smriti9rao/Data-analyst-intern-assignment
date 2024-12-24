@@ -1,15 +1,76 @@
-# Data Analytics Internship Assignment
+# Data Analyst Intern Assignment Documentation
 
-## Objective
-The objective of this analysis is to explore datasets related to user behavior, cooking preferences, and order trends. The task involves cleaning and merging data from three datasets: UserDetails, CookingSessions, and OrderDetails. The analysis includes identifying popular dishes, understanding the relationship between cooking sessions and user orders, and exploring demographic factors that influence user behavior. Visualizations and insights are provided to support business recommendations.
+## 1. Objective
+The goal of this assignment was to analyze user, cooking session, and order data to derive meaningful insights and visualize trends that could help the organization make informed decisions.
 
-## Datasets
-- **UserDetails**: Information about users (e.g., UserID, Age, Gender, Location).
-- **CookingSessions**: Data about the cooking sessions (e.g., UserID, DishPrepared, CookingTime).
-- **OrderDetails**: Information about user orders (e.g., OrderID, DishOrdered, OrderAmount).
+---
 
-## Steps
-1. Data cleaning and merging.
-2. Data analysis to identify trends and relationships.
-3. Visualizations to highlight key insights.
-4. Report summarizing findings and recommendations.
+## 2. Steps Followed
+
+### a. Data Loading
+- Imported the datasets `UserDetails.csv`, `CookingSessions.csv`, and `OrderDetails.csv` using the Pandas library.
+- Ensured proper handling of encodings and column names.
+
+### b. Data Cleaning
+- **User Details:**
+  - Filled missing `Age` values with the mean age.
+  - Replaced missing `Gender` values with "Unknown."
+- **Cooking Sessions:**
+  - Dropped rows where `DishPrepared` was missing, as these entries added no value to the analysis.
+- **Order Details:**
+  - Removed rows with missing `DishOrdered` values to ensure accuracy in insights.
+
+### c. Data Merging
+- Merged the datasets using `UserID` as the primary key:
+  - `UserDetails` with `CookingSessions` (left join).
+  - Resulting data with `OrderDetails` (left join).
+- This created a consolidated dataset containing user demographics, cooking activity, and ordering behavior.
+
+### d. Data Analysis
+- **Popular Dishes Ordered:**
+  - Calculated the frequency of each dish in the `DishOrdered` column.
+  - Identified trends in customer preferences.
+- **Session and Order Analysis:**
+  - Grouped data by `UserID` to count the number of `DishPrepared` and `DishOrdered` entries for each user.
+  - Analyzed correlations between cooking sessions and ordering behavior.
+
+### e. Visualization
+- Created a bar chart showcasing the most popular dishes ordered:
+  - Used `matplotlib` for clear, customizable visualization.
+  - Adjusted chart aesthetics (title, labels, and rotation) for readability.
+
+---
+
+## 3. Methodology
+- **Data Cleaning:** Ensured the datasets were free of inconsistencies or missing values that could skew results.
+- **Exploratory Data Analysis (EDA):** Leveraged statistical methods to examine distributions and trends.
+- **Data Integration:** Combined datasets to enable cross-functional analysis of user behavior.
+- **Visualization:** Used visual aids to communicate insights effectively.
+
+---
+
+## 4. Key Findings
+- **Popular Dishes:**
+  - The most frequently ordered dishes were identified, highlighting user preferences.  
+- **User Engagement:**
+  - Users with more cooking sessions exhibited higher order counts, suggesting a correlation between cooking activity and ordering behavior.  
+- **Demographic Insights:**
+  - Gender and age distributions provided a deeper understanding of the user base.
+
+---
+
+## 5. Challenges and Solutions
+- **Handling Missing Data:**
+  - Imputed or removed missing values depending on the column's significance.
+- **Data Integration:**
+  - Ensured primary keys (`UserID`) matched across datasets to avoid merging errors.
+
+---
+
+## 6. Future Recommendations
+- Collect more detailed session and order feedback to refine insights.
+- Use advanced statistical models to predict future trends in user ordering and cooking behavior.
+
+---
+
+This documentation, along with the code and visualizations, is available in the provided GitHub repository.
