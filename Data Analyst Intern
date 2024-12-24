@@ -1,5 +1,5 @@
 # Install matplotlib if not installed
-!pip install matplotlib
+# !pip install matplotlib
 
 # Re-import necessary libraries
 import pandas as pd
@@ -10,11 +10,15 @@ user_details = pd.read_csv("data/UserDetails.csv")
 cooking_sessions = pd.read_csv("data/CookingSessions.csv")
 order_details = pd.read_csv("data/OrderDetails.csv")
 
-# Clean and merge data (repeat any necessary preprocessing here)
-user_details.fillna({"Age": user_details["Age"].mean(), "Gender": "Unknown"}, inplace=True)
-cooking_sessions.dropna(subset=["DishPrepared"], inplace=True)
-order_details.dropna(subset=["DishOrdered"], inplace=True)
+# Data cleaning function
+def clean_data():
+    user_details.fillna({"Age": user_details["Age"].mean(), "Gender": "Unknown"}, inplace=True)
+    cooking_sessions.dropna(subset=["DishPrepared"], inplace=True)
+    order_details.dropna(subset=["DishOrdered"], inplace=True)
 
+clean_data()
+
+# Merge data
 merged_data = pd.merge(user_details, cooking_sessions, on="UserID", how="left")
 merged_data = pd.merge(merged_data, order_details, on="UserID", how="left")
 
@@ -25,10 +29,16 @@ session_order_analysis = merged_data.groupby("UserID").agg({
     "DishOrdered": "count"
 }).reset_index()
 
+# Display insights
+print("Top 5 Popular Dishes:\n", popular_dishes.head())
+print("\nSession vs. Order Analysis:\n", session_order_analysis.head())
+
 # Visualization
+plt.figure(figsize=(10, 5))
 popular_dishes.plot(kind="bar", color="skyblue")
-plt.title("Popular Dishes Ordered")
-plt.xlabel("Dish")
-plt.ylabel("Order Count")
+plt.title("Popular Dishes Ordered", fontsize=14)
+plt.xlabel("Dish", fontsize=12)
+plt.ylabel("Order Count", fontsize=12)
 plt.xticks(rotation=45, ha="right")
+plt.tight_layout()
 plt.show()
